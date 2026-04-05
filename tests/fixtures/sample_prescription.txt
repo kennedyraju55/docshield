@@ -1,0 +1,22 @@
+Patient: John Smith
+DOB: 03/15/1965
+Date: 04/01/2026
+
+Dr. Sarah Johnson, MD
+Internal Medicine
+
+PRESCRIPTION:
+
+1. Warfarin 5mg - Take 1 tablet by mouth daily
+   Qty: 30 | Refills: 3
+
+2. Lisinopril 10mg - Take 1 tablet by mouth daily for blood pressure
+   Qty: 30 | Refills: 5
+
+3. Ibuprofen 400mg - Take 1 tablet every 6 hours as needed for pain
+   Qty: 60 | Refills: 2
+
+4. Omeprazole 20mg - Take 1 capsule daily before breakfast
+   Qty: 30 | Refills: 3
+
+Allergies: Penicillin

@@ -1,0 +1,31 @@
+LABORATORY REPORT
+
+Patient: Maria Garcia    DOB: 07/22/1978
+Collected: 03/28/2026    Reported: 03/29/2026
+Ordering Physician: Dr. Chen
+
+TEST                    RESULT      REFERENCE RANGE     FLAG
+--------------------------------------------------------------
+COMPLETE BLOOD COUNT (CBC)
+WBC                     11.2        4.5-11.0 K/uL      HIGH
+RBC                     4.5         4.0-5.5 M/uL
+Hemoglobin (Hgb)        12.8        12.0-16.0 g/dL
+Hematocrit (Hct)        38.5        36.0-46.0 %
+Platelet Count (PLT)    245         150-400 K/uL
+
+BASIC METABOLIC PANEL (BMP)
+Glucose (fasting)       126         70-100 mg/dL        HIGH
+BUN                     22          7-20 mg/dL          HIGH
+Creatinine              1.4         0.6-1.2 mg/dL       HIGH
+Sodium                  140         136-145 mEq/L
+Potassium               4.8         3.5-5.0 mEq/L
+
+LIPID PANEL
+Total Cholesterol       248         <200 mg/dL          HIGH
+LDL                     168         <100 mg/dL          HIGH
+HDL                     38          >40 mg/dL           LOW
+Triglycerides           210         <150 mg/dL          HIGH
+
+OTHER
+HbA1c                   6.8         <5.7 %              HIGH
+TSH                     2.4         0.4-4.0 mIU/L

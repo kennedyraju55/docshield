@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocShield</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0b1121; color: #e2e8f0; min-height: 100vh;
+        }
+        .header {
+            text-align: center; padding: 30px 20px 10px;
+        }
+        .header h1 { font-size: 2rem; color: #f1f5f9; }
+        .header h1 span { color: #38bdf8; }
+        .header p { color: #64748b; margin-top: 6px; font-size: 0.95rem; }
+        .privacy-badge {
+            display: inline-block; background: #0f2a1f; color: #4ade80; border: 1px solid #166534;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0; margin-bottom: 0; }
+        .tab {
+            flex: 1; padding: 12px; text-align: center; background: #1e293b;
+            border: 1px solid #334155; cursor: pointer; color: #94a3b8; font-weight: 500;
+            transition: all 0.2s;
+        }
+        .tab:first-child { border-radius: 8px 0 0 0; }
+        .tab:last-child { border-radius: 0 8px 0 0; }
+        .tab.active { background: #0f172a; color: #38bdf8; border-bottom-color: #0f172a; }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 2px dashed #334155; border-top: none; border-radius: 0 0 8px 8px;
+            padding: 40px 20px; text-align: center; background: #0f172a;
+            transition: all 0.3s; cursor: pointer; position: relative;
+        }
+        .upload-zone.dragover { border-color: #38bdf8; background: #0c1629; }
+        .upload-zone .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .upload-zone p { color: #64748b; }
+        .upload-zone input[type="file"] {
+            position: absolute; inset: 0; opacity: 0; cursor: pointer;
+        }
+
+        /* Text input */
+        .text-input {
+            border: 1px solid #334155; border-top: none; border-radius: 0 0 8px 8px;
+            background: #0f172a; padding: 15px; display: none;
+        }
+        .text-input textarea {
+            width: 100%; min-height: 200px; background: #1e293b; border: 1px solid #334155;
+            border-radius: 6px; color: #e2e8f0; padding: 12px; font-family: inherit;
+            font-size: 0.95rem; resize: vertical;
+        }
+        .text-input textarea:focus { outline: none; border-color: #38bdf8; }
+
+        /* Preview */
+        .preview { margin: 15px 0; text-align: center; display: none; }
+        .preview img { max-height: 200px; border-radius: 8px; border: 1px solid #334155; }
+        .preview .filename { color: #94a3b8; font-size: 0.85rem; margin-top: 6px; }
+
+        /* Analyze Button */
+        .analyze-btn {
+            width: 100%; padding: 14px; background: #2563eb; color: white; border: none;
+            border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            margin: 15px 0; transition: all 0.2s;
+        }
+        .analyze-btn:hover { background: #1d4ed8; }
+        .analyze-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+
+        /* Results */
+        .results { margin-top: 20px; display: none; }
+        .agent-section {
+            background: #1e293b; border: 1px solid #334155; border-radius: 8px;
+            margin-bottom: 12px; overflow: hidden;
+        }
+        .agent-header {
+            padding: 12px 16px; background: #0f172a; border-bottom: 1px solid #334155;
+            font-weight: 600; display: flex; align-items: center; gap: 8px;
+            cursor: pointer;
+        }
+        .agent-header .badge {
+            font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 500;
+        }
+        .badge-reader { background: #1e3a5f; color: #60a5fa; }
+        .badge-explainer { background: #1a3a2a; color: #4ade80; }
+        .badge-checker { background: #3b1f1f; color: #f87171; }
+        .badge-bill { background: #3b2f1f; color: #fbbf24; }
+        .badge-orchestrator { background: #2d1b4e; color: #a78bfa; }
+        .agent-content {
+            padding: 16px; white-space: pre-wrap; line-height: 1.7;
+            font-size: 0.92rem; max-height: 600px; overflow-y: auto;
+        }
+        .agent-content h2 { color: #38bdf8; margin: 10px 0 5px; font-size: 1.05rem; }
+        .agent-content strong { color: #f1f5f9; }
+
+        /* Doc type badge */
+        .doc-type-badge {
+            display: inline-block; padding: 6px 16px; border-radius: 20px;
+            font-weight: 600; font-size: 0.9rem; margin: 10px 0;
+        }
+        .doc-type-prescription { background: #1e3a5f; color: #60a5fa; }
+        .doc-type-lab_report { background: #1a3a2a; color: #4ade80; }
+        .doc-type-hospital_bill { background: #3b2f1f; color: #fbbf24; }
+        .doc-type-general_medical { background: #2d1b4e; color: #a78bfa; }
+
+        /* Spinner */
+        .spinner {
+            display: inline-block; width: 16px; height: 16px; border: 2px solid #334155;
+            border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Status bar */
+        .status-bar {
+            text-align: center; padding: 8px; font-size: 0.8rem; color: #64748b;
+            border-top: 1px solid #1e293b; margin-top: 40px;
+        }
+        .status-dot {
+            display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+            margin-right: 4px; vertical-align: middle;
+        }
+        .status-dot.ok { background: #4ade80; }
+        .status-dot.err { background: #f87171; }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5rem; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Doc<span>Shield</span></h1>
+        <p>Your Private Medical Document Assistant</p>
+        <div class="privacy-badge">All processing happens on your device</div>
+    </div>
+
+    <div class="container">
+        <!-- Input Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('upload')">Upload Image</div>
+            <div class="tab" onclick="switchTab('text')">Paste Text</div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="uploadZone">
+            <div class="icon">+</div>
+            <p><strong>Drop your medical document here</strong></p>
+            <p>or click to browse (photo, scan, screenshot)</p>
+            <input type="file" id="fileInput" accept="image/*" capture="environment">
+        </div>
+
+        <!-- Text Zone -->
+        <div class="text-input" id="textZone">
+            <textarea id="textInput" placeholder="Paste your medical report, prescription, or bill text here..."></textarea>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview" id="preview">
+            <img id="previewImg" src="" alt="Preview">
+            <div class="filename" id="fileName"></div>
+        </div>
+
+        <!-- Analyze Button -->
+        <button class="analyze-btn" id="analyzeBtn" onclick="analyze()" disabled>
+            Analyze Document
+        </button>
+
+        <!-- Results -->
+        <div class="results" id="results"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Checking connection...</span>
+        </div>
+    </div>
+
+    <script>
+        let currentFile = null;
+        let currentTab = 'upload';
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if (tab === 'upload') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('uploadZone').style.display = '';
+                document.getElementById('textZone').style.display = 'none';
+            } else {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('uploadZone').style.display = 'none';
+                document.getElementById('textZone').style.display = '';
+            }
+            updateButton();
+        }
+
+        // File handling
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files[0]) handleFile(e.target.files[0]);
+        });
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            currentFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('preview').style.display = '';
+            };
+            reader.readAsDataURL(file);
+            updateButton();
+        }
+
+        function updateButton() {
+            const btn = document.getElementById('analyzeBtn');
+            if (currentTab === 'upload') {
+                btn.disabled = !currentFile;
+            } else {
+                btn.disabled = !document.getElementById('textInput').value.trim();
+            }
+        }
+
+        document.getElementById('textInput').addEventListener('input', updateButton);
+
+        // Analyze
+        async function analyze() {
+            const btn = document.getElementById('analyzeBtn');
+            const results = document.getElementById('results');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Analyzing...';
+            results.style.display = 'block';
+            results.innerHTML = '';
+
+            let body;
+            let headers = {};
+
+            if (currentTab === 'upload' && currentFile) {
+                body = new FormData();
+                body.append('image', currentFile);
+            } else {
+                body = JSON.stringify({ text: document.getElementById('textInput').value });
+                headers['Content-Type'] = 'application/json';
+            }
+
+            try {
+                const resp = await fetch('/analyze', { method: 'POST', body, headers: currentTab === 'text' ? headers : undefined });
+                const reader = resp.body.getReader();
+                const decoder = new TextDecoder();
+                let currentAgent = null;
+                let currentContent = null;
+                let sections = {};
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const text = decoder.decode(value);
+                    const lines = text.split('\n');
+
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+                        const data = JSON.parse(line.slice(6));
+
+                        if (data.done === true && !data.agent) {
+                            // Final done
+                            break;
+                        }
+
+                        if (data.header) {
+                            // New section header
+                            const section = createSection(data.header, data.agent || 'orchestrator');
+                            results.appendChild(section.wrapper);
+                            sections[data.header] = section;
+                            currentContent = section.content;
+                        }
+
+                        if (data.doc_type) {
+                            const badge = document.createElement('div');
+                            badge.className = `doc-type-badge doc-type-${data.doc_type}`;
+                            badge.textContent = data.doc_type.replace('_', ' ').toUpperCase();
+                            results.appendChild(badge);
+                        }
+
+                        if (data.token && currentContent) {
+                            currentContent.textContent += data.token;
+                            currentContent.scrollTop = currentContent.scrollHeight;
+                        }
+                    }
+                }
+            } catch (err) {
+                results.innerHTML = `<div class="agent-section"><div class="agent-content" style="color:#f87171">Error: ${err.message}</div></div>`;
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Analyze Document';
+        }
+
+        function createSection(title, agent) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'agent-section';
+
+            const header = document.createElement('div');
+            header.className = 'agent-header';
+
+            const badgeClass = agent === 'reader' ? 'badge-reader' :
+                              agent === 'explainer' ? 'badge-explainer' :
+                              agent === 'checker' ? 'badge-checker' :
+                              agent === 'bill_analyzer' ? 'badge-bill' : 'badge-orchestrator';
+
+            header.innerHTML = `<span class="badge ${badgeClass}">${agent}</span> ${title} <span class="spinner"></span>`;
+            wrapper.appendChild(header);
+
+            const content = document.createElement('div');
+            content.className = 'agent-content';
+            wrapper.appendChild(content);
+
+            return { wrapper, content, header };
+        }
+
+        // Health check
+        async function checkHealth() {
+            try {
+                const r = await fetch('/health');
+                const d = await r.json();
+                const dot = document.getElementById('statusDot');
+                const text = document.getElementById('statusText');
+                if (d.status === 'healthy') {
+                    dot.className = 'status-dot ok';
+                    text.textContent = `Connected to ${d.target_model}`;
+                } else if (d.status === 'model_missing') {
+                    dot.className = 'status-dot err';
+                    text.textContent = `Model ${d.target_model} not found. Run: ollama pull ${d.target_model}`;
+                } else {
+                    dot.className = 'status-dot err';
+                    text.textContent = d.message || 'Ollama not connected';
+                }
+            } catch {
+                document.getElementById('statusDot').className = 'status-dot err';
+                document.getElementById('statusText').textContent = 'Cannot reach server';
+            }
+        }
+        checkHealth();
+        setInterval(checkHealth, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+MEMORIAL HOSPITAL - PATIENT STATEMENT
+======================================
+
+Patient: Robert Davis        Account: 2026-04-8834
+Date of Service: 03/15/2026
+Discharge: 03/16/2026
+
+ITEMIZED CHARGES:
+----------------------------------------------
+Description                  CPT Code    Amount
+----------------------------------------------
+ER Visit, High Complexity    99284       $2,800.00
+Chest X-ray, 2 views         71046       $950.00
+EKG/ECG                      93000       $450.00
+Complete Blood Count (CBC)    85025       $250.00
+Basic Metabolic Panel         80048       $320.00
+IV Saline Bag (x3)           J3490       $2,400.00
+Acetaminophen 500mg (x4)     J3490       $100.00
+Room Charge (1 night)         N/A        $8,500.00
+Injection Administration      96372       $185.00
+Blood Draw                    36415       $95.00
+----------------------------------------------
+SUBTOTAL:                                $16,050.00
+Insurance Adjustment:                    -$4,200.00
+----------------------------------------------
+PATIENT RESPONSIBILITY:                  $11,850.00
+
+Payment due within 30 days.
+Questions? Call (555) 123-4567

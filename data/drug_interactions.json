@@ -1,0 +1,360 @@
+{
+  "aliases": {
+    "coumadin": "warfarin",
+    "jantoven": "warfarin",
+    "tylenol": "acetaminophen",
+    "advil": "ibuprofen",
+    "motrin": "ibuprofen",
+    "aleve": "naproxen",
+    "lipitor": "atorvastatin",
+    "crestor": "rosuvastatin",
+    "zocor": "simvastatin",
+    "glucophage": "metformin",
+    "prinivil": "lisinopril",
+    "zestril": "lisinopril",
+    "norvasc": "amlodipine",
+    "lasix": "furosemide",
+    "synthroid": "levothyroxine",
+    "levoxyl": "levothyroxine",
+    "xanax": "alprazolam",
+    "valium": "diazepam",
+    "ativan": "lorazepam",
+    "ambien": "zolpidem",
+    "prozac": "fluoxetine",
+    "zoloft": "sertraline",
+    "lexapro": "escitalopram",
+    "paxil": "paroxetine",
+    "effexor": "venlafaxine",
+    "cymbalta": "duloxetine",
+    "prilosec": "omeprazole",
+    "nexium": "esomeprazole",
+    "prevacid": "lansoprazole",
+    "plavix": "clopidogrel",
+    "eliquis": "apixaban",
+    "xarelto": "rivaroxaban",
+    "pradaxa": "dabigatran",
+    "metoprolol": "metoprolol",
+    "lopressor": "metoprolol",
+    "toprol": "metoprolol",
+    "atenolol": "atenolol",
+    "tenormin": "atenolol",
+    "hydrochlorothiazide": "hydrochlorothiazide",
+    "hctz": "hydrochlorothiazide",
+    "prednisone": "prednisone",
+    "amoxicillin": "amoxicillin",
+    "augmentin": "amoxicillin-clavulanate",
+    "azithromycin": "azithromycin",
+    "zithromax": "azithromycin",
+    "ciprofloxacin": "ciprofloxacin",
+    "cipro": "ciprofloxacin",
+    "metronidazole": "metronidazole",
+    "flagyl": "metronidazole",
+    "gabapentin": "gabapentin",
+    "neurontin": "gabapentin",
+    "lyrica": "pregabalin",
+    "tramadol": "tramadol",
+    "ultram": "tramadol",
+    "oxycodone": "oxycodone",
+    "percocet": "oxycodone-acetaminophen",
+    "vicodin": "hydrocodone-acetaminophen",
+    "insulin": "insulin",
+    "lantus": "insulin glargine",
+    "humalog": "insulin lispro"
+  },
+  "interactions": [
+    {
+      "drug_a": "warfarin",
+      "drug_b": "aspirin",
+      "severity": "high",
+      "effect": "Significantly increased risk of bleeding",
+      "recommendation": "Avoid combination unless specifically directed by doctor. Monitor for signs of bleeding."
+    },
+    {
+      "drug_a": "warfarin",
+      "drug_b": "ibuprofen",
+      "severity": "high",
+      "effect": "Increased bleeding risk. NSAIDs reduce platelet function and can cause GI bleeding.",
+      "recommendation": "Avoid NSAIDs with warfarin. Use acetaminophen for pain instead."
+    },
+    {
+      "drug_a": "warfarin",
+      "drug_b": "acetaminophen",
+      "severity": "medium",
+      "effect": "High doses of acetaminophen (>2g/day) may increase INR and bleeding risk",
+      "recommendation": "Limit acetaminophen to under 2g daily. Monitor INR more frequently."
+    },
+    {
+      "drug_a": "warfarin",
+      "drug_b": "fluoxetine",
+      "severity": "high",
+      "effect": "SSRIs increase bleeding risk and fluoxetine inhibits warfarin metabolism",
+      "recommendation": "Monitor INR closely. Consider dose adjustment."
+    },
+    {
+      "drug_a": "warfarin",
+      "drug_b": "metronidazole",
+      "severity": "high",
+      "effect": "Metronidazole significantly increases warfarin effect and bleeding risk",
+      "recommendation": "Reduce warfarin dose and monitor INR frequently during antibiotic course."
+    },
+    {
+      "drug_a": "metformin",
+      "drug_b": "alcohol",
+      "severity": "high",
+      "effect": "Increased risk of lactic acidosis, a rare but potentially fatal condition",
+      "recommendation": "Limit alcohol consumption. Seek medical attention if experiencing nausea, weakness, or rapid breathing."
+    },
+    {
+      "drug_a": "metformin",
+      "drug_b": "ciprofloxacin",
+      "severity": "medium",
+      "effect": "May alter blood sugar levels unpredictably",
+      "recommendation": "Monitor blood sugar more frequently during antibiotic course."
+    },
+    {
+      "drug_a": "lisinopril",
+      "drug_b": "potassium",
+      "severity": "high",
+      "effect": "ACE inhibitors raise potassium levels. Supplements can cause dangerous hyperkalemia.",
+      "recommendation": "Avoid potassium supplements unless directed by doctor. Monitor potassium levels."
+    },
+    {
+      "drug_a": "lisinopril",
+      "drug_b": "ibuprofen",
+      "severity": "medium",
+      "effect": "NSAIDs can reduce blood pressure lowering effect and harm kidneys",
+      "recommendation": "Use acetaminophen instead. If NSAID needed, use lowest dose for shortest time."
+    },
+    {
+      "drug_a": "lisinopril",
+      "drug_b": "spironolactone",
+      "severity": "high",
+      "effect": "Both raise potassium levels — risk of dangerous hyperkalemia",
+      "recommendation": "Requires regular potassium monitoring if used together."
+    },
+    {
+      "drug_a": "simvastatin",
+      "drug_b": "amlodipine",
+      "severity": "medium",
+      "effect": "Amlodipine increases simvastatin levels, raising risk of muscle damage (rhabdomyolysis)",
+      "recommendation": "Simvastatin dose should not exceed 20mg when taken with amlodipine."
+    },
+    {
+      "drug_a": "simvastatin",
+      "drug_b": "grapefruit",
+      "severity": "medium",
+      "effect": "Grapefruit juice significantly increases statin levels in blood",
+      "recommendation": "Avoid grapefruit and grapefruit juice while taking simvastatin."
+    },
+    {
+      "drug_a": "atorvastatin",
+      "drug_b": "clarithromycin",
+      "severity": "high",
+      "effect": "Clarithromycin greatly increases statin levels — risk of muscle damage",
+      "recommendation": "Use azithromycin instead, or temporarily stop statin during antibiotic course."
+    },
+    {
+      "drug_a": "clopidogrel",
+      "drug_b": "omeprazole",
+      "severity": "high",
+      "effect": "Omeprazole reduces clopidogrel effectiveness by 40-50%, increasing clot risk",
+      "recommendation": "Switch to pantoprazole or famotidine which don't have this interaction."
+    },
+    {
+      "drug_a": "clopidogrel",
+      "drug_b": "aspirin",
+      "severity": "medium",
+      "effect": "Dual antiplatelet therapy increases bleeding risk",
+      "recommendation": "Only use together if prescribed for stent or recent heart attack. Monitor for bleeding."
+    },
+    {
+      "drug_a": "metoprolol",
+      "drug_b": "verapamil",
+      "severity": "high",
+      "effect": "Both slow heart rate — risk of dangerously slow heartbeat or heart block",
+      "recommendation": "Avoid combination. If needed, requires close cardiac monitoring."
+    },
+    {
+      "drug_a": "metoprolol",
+      "drug_b": "fluoxetine",
+      "severity": "medium",
+      "effect": "Fluoxetine increases metoprolol levels, causing excessive heart rate slowing",
+      "recommendation": "Monitor heart rate. May need lower metoprolol dose."
+    },
+    {
+      "drug_a": "fluoxetine",
+      "drug_b": "tramadol",
+      "severity": "high",
+      "effect": "Risk of serotonin syndrome — a potentially life-threatening condition",
+      "recommendation": "Avoid combination. Symptoms: agitation, rapid heartbeat, high temperature, muscle rigidity."
+    },
+    {
+      "drug_a": "sertraline",
+      "drug_b": "tramadol",
+      "severity": "high",
+      "effect": "Risk of serotonin syndrome",
+      "recommendation": "Avoid combination. If both needed, use lowest doses and monitor closely."
+    },
+    {
+      "drug_a": "fluoxetine",
+      "drug_b": "sertraline",
+      "severity": "high",
+      "effect": "Two SSRIs together greatly increase serotonin syndrome risk",
+      "recommendation": "Never take two SSRIs together. One must be stopped before starting the other."
+    },
+    {
+      "drug_a": "alprazolam",
+      "drug_b": "oxycodone",
+      "severity": "high",
+      "effect": "Benzodiazepine + opioid: risk of fatal respiratory depression",
+      "recommendation": "FDA black box warning. Avoid combination. Life-threatening breathing suppression."
+    },
+    {
+      "drug_a": "diazepam",
+      "drug_b": "oxycodone",
+      "severity": "high",
+      "effect": "Benzodiazepine + opioid: risk of fatal respiratory depression",
+      "recommendation": "FDA black box warning. Avoid combination."
+    },
+    {
+      "drug_a": "lorazepam",
+      "drug_b": "hydrocodone-acetaminophen",
+      "severity": "high",
+      "effect": "Benzodiazepine + opioid: risk of fatal respiratory depression",
+      "recommendation": "FDA black box warning. Avoid combination."
+    },
+    {
+      "drug_a": "alprazolam",
+      "drug_b": "alcohol",
+      "severity": "high",
+      "effect": "Extreme sedation, respiratory depression, potentially fatal",
+      "recommendation": "Never combine benzodiazepines with alcohol."
+    },
+    {
+      "drug_a": "gabapentin",
+      "drug_b": "oxycodone",
+      "severity": "high",
+      "effect": "Increased risk of respiratory depression and sedation",
+      "recommendation": "Use lowest effective doses if combination is necessary."
+    },
+    {
+      "drug_a": "levothyroxine",
+      "drug_b": "calcium",
+      "severity": "medium",
+      "effect": "Calcium reduces thyroid medication absorption by up to 50%",
+      "recommendation": "Take levothyroxine 4 hours apart from calcium supplements."
+    },
+    {
+      "drug_a": "levothyroxine",
+      "drug_b": "omeprazole",
+      "severity": "medium",
+      "effect": "Proton pump inhibitors reduce levothyroxine absorption",
+      "recommendation": "May need higher levothyroxine dose. Monitor TSH levels."
+    },
+    {
+      "drug_a": "levothyroxine",
+      "drug_b": "iron",
+      "severity": "medium",
+      "effect": "Iron supplements reduce thyroid medication absorption",
+      "recommendation": "Take levothyroxine 4 hours apart from iron supplements."
+    },
+    {
+      "drug_a": "ciprofloxacin",
+      "drug_b": "tizanidine",
+      "severity": "high",
+      "effect": "Ciprofloxacin increases tizanidine levels 10-fold — dangerous drop in blood pressure",
+      "recommendation": "Combination is contraindicated. Use a different antibiotic."
+    },
+    {
+      "drug_a": "ciprofloxacin",
+      "drug_b": "theophylline",
+      "severity": "high",
+      "effect": "Ciprofloxacin increases theophylline to toxic levels — seizure risk",
+      "recommendation": "Reduce theophylline dose by 50% or use different antibiotic."
+    },
+    {
+      "drug_a": "azithromycin",
+      "drug_b": "amiodarone",
+      "severity": "high",
+      "effect": "Both prolong QT interval — risk of fatal heart rhythm",
+      "recommendation": "Avoid combination. Use a different antibiotic."
+    },
+    {
+      "drug_a": "furosemide",
+      "drug_b": "lisinopril",
+      "severity": "medium",
+      "effect": "First-dose hypotension — blood pressure may drop dangerously low",
+      "recommendation": "Start with low doses. Monitor blood pressure when starting combination."
+    },
+    {
+      "drug_a": "furosemide",
+      "drug_b": "gentamicin",
+      "severity": "high",
+      "effect": "Both are toxic to ears and kidneys — increased hearing loss and kidney damage",
+      "recommendation": "Monitor kidney function and hearing if combination is unavoidable."
+    },
+    {
+      "drug_a": "prednisone",
+      "drug_b": "ibuprofen",
+      "severity": "medium",
+      "effect": "Greatly increased risk of stomach ulcers and GI bleeding",
+      "recommendation": "Use acetaminophen for pain. If NSAID needed, add stomach protection (PPI)."
+    },
+    {
+      "drug_a": "prednisone",
+      "drug_b": "insulin",
+      "severity": "medium",
+      "effect": "Corticosteroids raise blood sugar significantly",
+      "recommendation": "May need to increase insulin dose. Monitor blood sugar frequently."
+    },
+    {
+      "drug_a": "insulin",
+      "drug_b": "metformin",
+      "severity": "low",
+      "effect": "Additive blood sugar lowering — increased hypoglycemia risk",
+      "recommendation": "Common combination but monitor blood sugar to prevent lows."
+    },
+    {
+      "drug_a": "amlodipine",
+      "drug_b": "atorvastatin",
+      "severity": "low",
+      "effect": "Amlodipine slightly increases atorvastatin levels",
+      "recommendation": "Generally safe but limit atorvastatin to 80mg. Monitor for muscle pain."
+    },
+    {
+      "drug_a": "escitalopram",
+      "drug_b": "tramadol",
+      "severity": "high",
+      "effect": "Risk of serotonin syndrome and increased seizure risk",
+      "recommendation": "Avoid combination if possible. Watch for confusion, rapid heartbeat, fever."
+    },
+    {
+      "drug_a": "venlafaxine",
+      "drug_b": "tramadol",
+      "severity": "high",
+      "effect": "High risk of serotonin syndrome",
+      "recommendation": "Avoid combination. Both affect serotonin reuptake."
+    },
+    {
+      "drug_a": "duloxetine",
+      "drug_b": "tramadol",
+      "severity": "high",
+      "effect": "Risk of serotonin syndrome and seizures",
+      "recommendation": "Avoid combination or use with extreme caution."
+    },
+    {
+      "drug_a": "apixaban",
+      "drug_b": "aspirin",
+      "severity": "high",
+      "effect": "Significantly increased bleeding risk",
+      "recommendation": "Avoid unless specifically prescribed for a cardiac condition. Monitor for bleeding."
+    },
+    {
+      "drug_a": "rivaroxaban",
+      "drug_b": "ibuprofen",
+      "severity": "high",
+      "effect": "Greatly increased bleeding risk",
+      "recommendation": "Avoid NSAIDs with blood thinners. Use acetaminophen instead."
+    }
+  ]
+}
