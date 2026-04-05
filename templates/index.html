@@ -3,105 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocShield</title>
+    <title>DocShield - Privacy-First Medical Document Assistant</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             background: #0b1121; color: #e2e8f0; min-height: 100vh;
         }
-        .header {
-            text-align: center; padding: 30px 20px 10px;
-        }
-        .header h1 { font-size: 2rem; color: #f1f5f9; }
-        .header h1 span { color: #38bdf8; }
-        .header p { color: #64748b; margin-top: 6px; font-size: 0.95rem; }
-        .privacy-badge {
-            display: inline-block; background: #0f2a1f; color: #4ade80; border: 1px solid #166534;
-            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-        /* Tabs */
-        .tabs { display: flex; gap: 0; margin-bottom: 0; }
-        .tab {
-            flex: 1; padding: 12px; text-align: center; background: #1e293b;
-            border: 1px solid #334155; cursor: pointer; color: #94a3b8; font-weight: 500;
-            transition: all 0.2s;
+        /* ── Header ── */
+        .header {
+            text-align: center; padding: 40px 20px 20px;
+            background: linear-gradient(180deg, #0f1d35 0%, #0b1121 100%);
+            border-bottom: 1px solid #1e293b;
         }
-        .tab:first-child { border-radius: 8px 0 0 0; }
-        .tab:last-child { border-radius: 0 8px 0 0; }
-        .tab.active { background: #0f172a; color: #38bdf8; border-bottom-color: #0f172a; }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .logo-icon {
+            width: 48px; height: 48px; background: linear-gradient(135deg, #2563eb, #38bdf8);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 800; color: white;
+        }
+        .header h1 { font-size: 2.2rem; color: #f1f5f9; font-weight: 700; }
+        .header h1 span { color: #38bdf8; }
+        .tagline { color: #64748b; margin-top: 8px; font-size: 1rem; }
+        .badges { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+        .badge-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 500;
+        }
+        .badge-privacy { background: #0f2a1f; color: #4ade80; border: 1px solid #166534; }
+        .badge-gemma { background: #1e1b4b; color: #a78bfa; border: 1px solid #3730a3; }
+        .badge-agents { background: #1e3a5f; color: #60a5fa; border: 1px solid #1d4ed8; }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+
+        /* ── Feature Cards ── */
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+        .feature-card {
+            background: #1e293b; border: 1px solid #334155; border-radius: 10px;
+            padding: 16px; text-align: center; transition: all 0.2s;
+        }
+        .feature-card:hover { border-color: #475569; transform: translateY(-2px); }
+        .feature-icon { font-size: 1.6rem; margin-bottom: 6px; }
+        .feature-card h3 { font-size: 0.85rem; color: #f1f5f9; margin-bottom: 4px; }
+        .feature-card p { font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
+
+        /* ── Input Section ── */
+        .input-section {
+            background: #111827; border: 1px solid #1e293b; border-radius: 12px;
+            overflow: hidden; margin-bottom: 20px;
+        }
+        .tabs { display: flex; gap: 0; background: #0f172a; }
+        .tab {
+            flex: 1; padding: 13px; text-align: center; cursor: pointer;
+            color: #64748b; font-weight: 600; font-size: 0.9rem;
+            transition: all 0.2s; border-bottom: 2px solid transparent;
+        }
+        .tab:hover { color: #94a3b8; }
+        .tab.active { color: #38bdf8; border-bottom-color: #38bdf8; background: #111827; }
 
         /* Upload Zone */
         .upload-zone {
-            border: 2px dashed #334155; border-top: none; border-radius: 0 0 8px 8px;
-            padding: 40px 20px; text-align: center; background: #0f172a;
-            transition: all 0.3s; cursor: pointer; position: relative;
+            padding: 50px 20px; text-align: center; cursor: pointer;
+            position: relative; transition: all 0.3s;
         }
-        .upload-zone.dragover { border-color: #38bdf8; background: #0c1629; }
-        .upload-zone .icon { font-size: 2.5rem; margin-bottom: 10px; }
-        .upload-zone p { color: #64748b; }
-        .upload-zone input[type="file"] {
-            position: absolute; inset: 0; opacity: 0; cursor: pointer;
+        .upload-zone.dragover { background: #0c1629; }
+        .upload-icon {
+            width: 64px; height: 64px; border: 2px dashed #334155; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px; font-size: 1.5rem; color: #475569;
+            transition: all 0.3s;
         }
+        .upload-zone:hover .upload-icon { border-color: #38bdf8; color: #38bdf8; }
+        .upload-zone h3 { color: #e2e8f0; font-size: 1rem; margin-bottom: 6px; }
+        .upload-zone p { color: #64748b; font-size: 0.85rem; }
+        .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
         /* Text input */
-        .text-input {
-            border: 1px solid #334155; border-top: none; border-radius: 0 0 8px 8px;
-            background: #0f172a; padding: 15px; display: none;
-        }
+        .text-input { padding: 16px; display: none; }
         .text-input textarea {
-            width: 100%; min-height: 200px; background: #1e293b; border: 1px solid #334155;
-            border-radius: 6px; color: #e2e8f0; padding: 12px; font-family: inherit;
-            font-size: 0.95rem; resize: vertical;
+            width: 100%; min-height: 180px; background: #1e293b; border: 1px solid #334155;
+            border-radius: 8px; color: #e2e8f0; padding: 14px; font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 0.88rem; resize: vertical; line-height: 1.6;
         }
-        .text-input textarea:focus { outline: none; border-color: #38bdf8; }
+        .text-input textarea:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
+
+        /* Sample Buttons */
+        .samples { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .sample-btn {
+            padding: 6px 14px; background: #1e293b; border: 1px solid #334155;
+            border-radius: 6px; color: #94a3b8; font-size: 0.78rem; cursor: pointer;
+            transition: all 0.2s; font-weight: 500;
+        }
+        .sample-btn:hover { border-color: #38bdf8; color: #38bdf8; }
 
         /* Preview */
-        .preview { margin: 15px 0; text-align: center; display: none; }
-        .preview img { max-height: 200px; border-radius: 8px; border: 1px solid #334155; }
-        .preview .filename { color: #94a3b8; font-size: 0.85rem; margin-top: 6px; }
+        .preview { margin: 12px 16px; text-align: center; display: none; background: #1e293b; border-radius: 8px; padding: 12px; }
+        .preview img { max-height: 150px; border-radius: 6px; }
+        .preview .filename { color: #94a3b8; font-size: 0.8rem; margin-top: 6px; }
+        .preview .remove-btn {
+            display: inline-block; margin-top: 8px; padding: 4px 12px;
+            background: #3b1f1f; color: #f87171; border: 1px solid #7f1d1d;
+            border-radius: 4px; font-size: 0.75rem; cursor: pointer;
+        }
 
         /* Analyze Button */
         .analyze-btn {
-            width: 100%; padding: 14px; background: #2563eb; color: white; border: none;
-            border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
-            margin: 15px 0; transition: all 0.2s;
+            width: calc(100% - 32px); margin: 0 16px 16px; padding: 15px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white; border: none; border-radius: 10px;
+            font-size: 1.05rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; letter-spacing: 0.3px;
         }
-        .analyze-btn:hover { background: #1d4ed8; }
-        .analyze-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+        .analyze-btn:hover { background: linear-gradient(135deg, #1d4ed8, #1e40af); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.4); }
+        .analyze-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        /* Results */
-        .results { margin-top: 20px; display: none; }
+        /* ── Results ── */
+        .results { margin-top: 8px; display: none; }
         .agent-section {
-            background: #1e293b; border: 1px solid #334155; border-radius: 8px;
-            margin-bottom: 12px; overflow: hidden;
+            background: #1e293b; border: 1px solid #334155; border-radius: 10px;
+            margin-bottom: 14px; overflow: hidden;
+            animation: fadeIn 0.3s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
         .agent-header {
-            padding: 12px 16px; background: #0f172a; border-bottom: 1px solid #334155;
-            font-weight: 600; display: flex; align-items: center; gap: 8px;
-            cursor: pointer;
+            padding: 14px 18px; background: linear-gradient(90deg, #0f172a, #111827);
+            border-bottom: 1px solid #334155; font-weight: 600;
+            display: flex; align-items: center; gap: 10px;
         }
         .agent-header .badge {
-            font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 500;
+            font-size: 0.7rem; padding: 3px 10px; border-radius: 10px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .badge-reader { background: #1e3a5f; color: #60a5fa; }
         .badge-explainer { background: #1a3a2a; color: #4ade80; }
         .badge-checker { background: #3b1f1f; color: #f87171; }
         .badge-bill { background: #3b2f1f; color: #fbbf24; }
         .badge-orchestrator { background: #2d1b4e; color: #a78bfa; }
+        .agent-header .title { flex: 1; font-size: 0.9rem; }
+
         .agent-content {
-            padding: 16px; white-space: pre-wrap; line-height: 1.7;
-            font-size: 0.92rem; max-height: 600px; overflow-y: auto;
+            padding: 18px 20px; line-height: 1.8; font-size: 0.9rem;
+            max-height: 500px; overflow-y: auto;
         }
-        .agent-content h2 { color: #38bdf8; margin: 10px 0 5px; font-size: 1.05rem; }
+        .agent-content h2 { color: #38bdf8; margin: 14px 0 6px; font-size: 1rem; }
         .agent-content strong { color: #f1f5f9; }
+        .agent-content ul { margin-left: 16px; margin-bottom: 8px; }
+        .agent-content li { margin-bottom: 4px; }
 
         /* Doc type badge */
         .doc-type-badge {
-            display: inline-block; padding: 6px 16px; border-radius: 20px;
-            font-weight: 600; font-size: 0.9rem; margin: 10px 0;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 18px; border-radius: 20px; font-weight: 700;
+            font-size: 0.85rem; margin: 12px 0; letter-spacing: 0.5px;
         }
         .doc-type-prescription { background: #1e3a5f; color: #60a5fa; }
         .doc-type-lab_report { background: #1a3a2a; color: #4ade80; }
@@ -110,74 +165,122 @@
 
         /* Spinner */
         .spinner {
-            display: inline-block; width: 16px; height: 16px; border: 2px solid #334155;
-            border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;
+            display: inline-block; width: 14px; height: 14px; border: 2px solid #334155;
+            border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.7s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Status bar */
+        /* ── Status bar ── */
         .status-bar {
-            text-align: center; padding: 8px; font-size: 0.8rem; color: #64748b;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 12px; font-size: 0.78rem; color: #475569;
             border-top: 1px solid #1e293b; margin-top: 40px;
         }
         .status-dot {
-            display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-            margin-right: 4px; vertical-align: middle;
+            width: 7px; height: 7px; border-radius: 50%;
         }
-        .status-dot.ok { background: #4ade80; }
-        .status-dot.err { background: #f87171; }
+        .status-dot.ok { background: #4ade80; box-shadow: 0 0 6px rgba(74,222,128,0.4); }
+        .status-dot.err { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.4); }
 
-        @media (max-width: 600px) {
-            .header h1 { font-size: 1.5rem; }
-            .container { padding: 10px; }
+        /* ── Footer ── */
+        .footer { text-align: center; padding: 16px; color: #334155; font-size: 0.72rem; }
+        .footer a { color: #475569; text-decoration: none; }
+        .footer a:hover { color: #64748b; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .features { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.6rem; }
+            .badges { flex-direction: column; align-items: center; }
+            .samples { flex-direction: column; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Doc<span>Shield</span></h1>
-        <p>Your Private Medical Document Assistant</p>
-        <div class="privacy-badge">All processing happens on your device</div>
+        <div class="logo">
+            <div class="logo-icon">D</div>
+            <h1>Doc<span>Shield</span></h1>
+        </div>
+        <p class="tagline">Your Private Medical Document Assistant</p>
+        <div class="badges">
+            <span class="badge-pill badge-privacy">100% Local Processing</span>
+            <span class="badge-pill badge-gemma">Powered by Gemma 4</span>
+            <span class="badge-pill badge-agents">5 AI Agents</span>
+        </div>
     </div>
 
     <div class="container">
-        <!-- Input Tabs -->
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('upload')">Upload Image</div>
-            <div class="tab" onclick="switchTab('text')">Paste Text</div>
+        <!-- Feature Cards -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">&#x1F4C4;</div>
+                <h3>Read Documents</h3>
+                <p>Photos, scans, handwritten notes — AI extracts every detail</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#x1F4AC;</div>
+                <h3>Explain Simply</h3>
+                <p>Medical jargon translated into plain language anyone can understand</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#x1F6E1;</div>
+                <h3>Check Safety</h3>
+                <p>Flags drug interactions, billing errors, and missing information</p>
+            </div>
         </div>
 
-        <!-- Upload Zone -->
-        <div class="upload-zone" id="uploadZone">
-            <div class="icon">+</div>
-            <p><strong>Drop your medical document here</strong></p>
-            <p>or click to browse (photo, scan, screenshot)</p>
-            <input type="file" id="fileInput" accept="image/*" capture="environment">
-        </div>
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('upload')">Upload Image</div>
+                <div class="tab" onclick="switchTab('text')">Paste Text</div>
+            </div>
 
-        <!-- Text Zone -->
-        <div class="text-input" id="textZone">
-            <textarea id="textInput" placeholder="Paste your medical report, prescription, or bill text here..."></textarea>
-        </div>
+            <!-- Upload Zone -->
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">+</div>
+                <h3>Drop your medical document here</h3>
+                <p>Photo, scan, or screenshot of any medical document</p>
+                <input type="file" id="fileInput" accept="image/*" capture="environment">
+            </div>
 
-        <!-- Preview -->
-        <div class="preview" id="preview">
-            <img id="previewImg" src="" alt="Preview">
-            <div class="filename" id="fileName"></div>
-        </div>
+            <!-- Text Zone -->
+            <div class="text-input" id="textZone">
+                <textarea id="textInput" placeholder="Paste your medical report, prescription, or hospital bill text here..."></textarea>
+                <div class="samples">
+                    <span style="color:#64748b; font-size:0.78rem; align-self:center;">Try a sample:</span>
+                    <button class="sample-btn" onclick="loadSample('prescription')">Prescription</button>
+                    <button class="sample-btn" onclick="loadSample('lab_report')">Lab Report</button>
+                    <button class="sample-btn" onclick="loadSample('bill')">Hospital Bill</button>
+                </div>
+            </div>
 
-        <!-- Analyze Button -->
-        <button class="analyze-btn" id="analyzeBtn" onclick="analyze()" disabled>
-            Analyze Document
-        </button>
+            <!-- Preview -->
+            <div class="preview" id="preview">
+                <img id="previewImg" src="" alt="Document Preview">
+                <div class="filename" id="fileName"></div>
+                <div class="remove-btn" onclick="removeFile()">Remove</div>
+            </div>
+
+            <!-- Analyze Button -->
+            <button class="analyze-btn" id="analyzeBtn" onclick="analyze()" disabled>
+                Analyze Document
+            </button>
+        </div>
 
         <!-- Results -->
         <div class="results" id="results"></div>
 
         <!-- Status Bar -->
-        <div class="status-bar" id="statusBar">
+        <div class="status-bar">
             <span class="status-dot" id="statusDot"></span>
             <span id="statusText">Checking connection...</span>
+        </div>
+
+        <div class="footer">
+            DocShield &mdash; Built for the <a href="https://www.kaggle.com/competitions/gemma-4-good-hackathon" target="_blank">Gemma 4 Good Hackathon</a>
+            &nbsp;|&nbsp; Zero data leaves your device
         </div>
     </div>
 
@@ -185,7 +288,81 @@
         let currentFile = null;
         let currentTab = 'upload';
 
-        // Tab switching
+        const SAMPLES = {
+            prescription: `Patient: John Smith
+DOB: 03/15/1965
+Date: 04/01/2026
+
+Dr. Sarah Johnson, MD - Internal Medicine
+
+PRESCRIPTION:
+
+1. Warfarin 5mg - Take 1 tablet by mouth daily
+   Qty: 30 | Refills: 3
+
+2. Lisinopril 10mg - Take 1 tablet by mouth daily for blood pressure
+   Qty: 30 | Refills: 5
+
+3. Ibuprofen 400mg - Take 1 tablet every 6 hours as needed for pain
+   Qty: 60 | Refills: 2
+
+4. Omeprazole 20mg - Take 1 capsule daily before breakfast
+   Qty: 30 | Refills: 3
+
+Allergies: Penicillin`,
+
+            lab_report: `LABORATORY REPORT
+
+Patient: Maria Garcia    DOB: 07/22/1978
+Collected: 03/28/2026    Reported: 03/29/2026
+
+TEST                    RESULT      REFERENCE RANGE     FLAG
+--------------------------------------------------------------
+COMPLETE BLOOD COUNT (CBC)
+WBC                     11.2        4.5-11.0 K/uL      HIGH
+RBC                     4.5         4.0-5.5 M/uL
+Hemoglobin              12.8        12.0-16.0 g/dL
+Platelet Count          245         150-400 K/uL
+
+BASIC METABOLIC PANEL (BMP)
+Glucose (fasting)       126         70-100 mg/dL        HIGH
+BUN                     22          7-20 mg/dL          HIGH
+Creatinine              1.4         0.6-1.2 mg/dL       HIGH
+
+LIPID PANEL
+Total Cholesterol       248         <200 mg/dL          HIGH
+LDL                     168         <100 mg/dL          HIGH
+HDL                     38          >40 mg/dL           LOW
+
+OTHER
+HbA1c                   6.8         <5.7 %              HIGH
+TSH                     2.4         0.4-4.0 mIU/L`,
+
+            bill: `MEMORIAL HOSPITAL - PATIENT STATEMENT
+
+Patient: Robert Davis       Account: 2026-04-8834
+Date of Service: 03/15/2026
+
+ITEMIZED CHARGES:
+----------------------------------------------
+Description                  CPT Code    Amount
+----------------------------------------------
+ER Visit, High Complexity    99284       $2,800.00
+Chest X-ray, 2 views         71046       $950.00
+EKG/ECG                      93000       $450.00
+Complete Blood Count (CBC)    85025       $250.00
+Basic Metabolic Panel         80048       $320.00
+IV Saline Bag (x3)           J3490       $2,400.00
+Acetaminophen 500mg (x4)     J3490       $100.00
+Room Charge (1 night)         N/A        $8,500.00
+Blood Draw                    36415       $95.00
+----------------------------------------------
+SUBTOTAL:                                $15,865.00
+Insurance Adjustment:                    -$4,200.00
+----------------------------------------------
+PATIENT RESPONSIBILITY:                  $11,665.00`
+        };
+
         function switchTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -201,22 +378,21 @@
             updateButton();
         }
 
-        // File handling
+        function loadSample(type) {
+            document.getElementById('textInput').value = SAMPLES[type];
+            updateButton();
+        }
+
         const fileInput = document.getElementById('fileInput');
         const uploadZone = document.getElementById('uploadZone');
 
         fileInput.addEventListener('change', (e) => {
             if (e.target.files[0]) handleFile(e.target.files[0]);
         });
-
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.classList.add('dragover');
-        });
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
         uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
         uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.classList.remove('dragover');
+            e.preventDefault(); uploadZone.classList.remove('dragover');
             if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         });
 
@@ -227,34 +403,36 @@
                 document.getElementById('previewImg').src = e.target.result;
                 document.getElementById('fileName').textContent = file.name;
                 document.getElementById('preview').style.display = '';
+                document.getElementById('uploadZone').style.display = 'none';
             };
             reader.readAsDataURL(file);
             updateButton();
         }
 
+        function removeFile() {
+            currentFile = null;
+            document.getElementById('preview').style.display = 'none';
+            document.getElementById('uploadZone').style.display = '';
+            fileInput.value = '';
+            updateButton();
+        }
+
         function updateButton() {
             const btn = document.getElementById('analyzeBtn');
-            if (currentTab === 'upload') {
-                btn.disabled = !currentFile;
-            } else {
-                btn.disabled = !document.getElementById('textInput').value.trim();
-            }
+            btn.disabled = currentTab === 'upload' ? !currentFile : !document.getElementById('textInput').value.trim();
         }
 
         document.getElementById('textInput').addEventListener('input', updateButton);
 
-        // Analyze
         async function analyze() {
             const btn = document.getElementById('analyzeBtn');
             const results = document.getElementById('results');
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Analyzing...';
+            btn.innerHTML = '<span class="spinner"></span>&nbsp; Analyzing with Gemma 4...';
             results.style.display = 'block';
             results.innerHTML = '';
 
-            let body;
-            let headers = {};
-
+            let body, headers = {};
             if (currentTab === 'upload' && currentFile) {
                 body = new FormData();
                 body.append('image', currentFile);
@@ -267,51 +445,41 @@
                 const resp = await fetch('/analyze', { method: 'POST', body, headers: currentTab === 'text' ? headers : undefined });
                 const reader = resp.body.getReader();
                 const decoder = new TextDecoder();
-                let currentAgent = null;
                 let currentContent = null;
                 let sections = {};
 
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-
                     const text = decoder.decode(value);
-                    const lines = text.split('\n');
-
-                    for (const line of lines) {
+                    for (const line of text.split('\n')) {
                         if (!line.startsWith('data: ')) continue;
-                        const data = JSON.parse(line.slice(6));
-
-                        if (data.done === true && !data.agent) {
-                            // Final done
-                            break;
-                        }
-
-                        if (data.header) {
-                            // New section header
-                            const section = createSection(data.header, data.agent || 'orchestrator');
-                            results.appendChild(section.wrapper);
-                            sections[data.header] = section;
-                            currentContent = section.content;
-                        }
-
-                        if (data.doc_type) {
-                            const badge = document.createElement('div');
-                            badge.className = `doc-type-badge doc-type-${data.doc_type}`;
-                            badge.textContent = data.doc_type.replace('_', ' ').toUpperCase();
-                            results.appendChild(badge);
-                        }
-
-                        if (data.token && currentContent) {
-                            currentContent.textContent += data.token;
-                            currentContent.scrollTop = currentContent.scrollHeight;
-                        }
+                        try {
+                            const data = JSON.parse(line.slice(6));
+                            if (data.done === true && !data.agent) break;
+                            if (data.header) {
+                                const section = createSection(data.header, data.agent || 'orchestrator');
+                                results.appendChild(section.wrapper);
+                                sections[data.header] = section;
+                                currentContent = section.content;
+                            }
+                            if (data.doc_type) {
+                                const badge = document.createElement('div');
+                                badge.className = `doc-type-badge doc-type-${data.doc_type}`;
+                                const icons = { prescription: '&#x1F48A;', lab_report: '&#x1F9EA;', hospital_bill: '&#x1F4B0;', general_medical: '&#x1F4CB;' };
+                                badge.innerHTML = `${icons[data.doc_type] || ''} ${data.doc_type.replace('_', ' ').toUpperCase()}`;
+                                results.appendChild(badge);
+                            }
+                            if (data.token && currentContent) {
+                                currentContent.textContent += data.token;
+                                currentContent.scrollTop = currentContent.scrollHeight;
+                            }
+                        } catch(e) {}
                     }
                 }
             } catch (err) {
-                results.innerHTML = `<div class="agent-section"><div class="agent-content" style="color:#f87171">Error: ${err.message}</div></div>`;
+                results.innerHTML = `<div class="agent-section"><div class="agent-content" style="color:#f87171">Error: ${err.message}. Make sure Ollama is running.</div></div>`;
             }
-
             btn.disabled = false;
             btn.textContent = 'Analyze Document';
         }
@@ -319,26 +487,20 @@
         function createSection(title, agent) {
             const wrapper = document.createElement('div');
             wrapper.className = 'agent-section';
-
             const header = document.createElement('div');
             header.className = 'agent-header';
-
             const badgeClass = agent === 'reader' ? 'badge-reader' :
                               agent === 'explainer' ? 'badge-explainer' :
                               agent === 'checker' ? 'badge-checker' :
                               agent === 'bill_analyzer' ? 'badge-bill' : 'badge-orchestrator';
-
-            header.innerHTML = `<span class="badge ${badgeClass}">${agent}</span> ${title} <span class="spinner"></span>`;
+            header.innerHTML = `<span class="badge ${badgeClass}">${agent.replace('_',' ')}</span><span class="title">${title}</span><span class="spinner"></span>`;
             wrapper.appendChild(header);
-
             const content = document.createElement('div');
             content.className = 'agent-content';
             wrapper.appendChild(content);
-
             return { wrapper, content, header };
         }
 
-        // Health check
         async function checkHealth() {
             try {
                 const r = await fetch('/health');

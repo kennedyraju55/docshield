@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" fill="none">
+  <rect width="800" height="520" rx="12" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" fill="#f1f5f9" font-family="system-ui" font-size="18" font-weight="700">DocShield Multi-Agent Architecture</text>
+
+  <!-- User Input -->
+  <rect x="300" y="56" width="200" height="44" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="400" y="83" text-anchor="middle" fill="#e2e8f0" font-family="system-ui" font-size="13" font-weight="600">User Uploads Document</text>
+
+  <!-- Arrow down -->
+  <line x1="400" y1="100" x2="400" y2="130" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Orchestrator -->
+  <rect x="270" y="130" width="260" height="44" rx="8" fill="#2d1b4e" stroke="#7c3aed"/>
+  <text x="400" y="157" text-anchor="middle" fill="#a78bfa" font-family="system-ui" font-size="13" font-weight="700">Orchestrator Agent</text>
+
+  <!-- Arrow down -->
+  <line x1="400" y1="174" x2="400" y2="204" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Reader -->
+  <rect x="270" y="204" width="260" height="44" rx="8" fill="#1e3a5f" stroke="#2563eb"/>
+  <text x="400" y="231" text-anchor="middle" fill="#60a5fa" font-family="system-ui" font-size="13" font-weight="700">Reader Agent (Gemma 4 Vision)</text>
+
+  <!-- Arrow down -->
+  <line x1="400" y1="248" x2="400" y2="278" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Classification -->
+  <rect x="250" y="278" width="300" height="36" rx="18" fill="#1e293b" stroke="#334155"/>
+  <text x="400" y="301" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="12">Auto-classifies: Prescription | Lab Report | Bill</text>
+
+  <!-- Three arrows down -->
+  <line x1="200" y1="314" x2="200" y2="370" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="400" y1="314" x2="400" y2="370" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="600" y1="314" x2="600" y2="370" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Branch lines -->
+  <line x1="200" y1="314" x2="400" y2="314" stroke="#475569" stroke-width="2"/>
+  <line x1="400" y1="314" x2="600" y2="314" stroke="#475569" stroke-width="2"/>
+
+  <!-- Explainer Agent -->
+  <rect x="100" y="370" width="200" height="52" rx="8" fill="#1a3a2a" stroke="#16a34a"/>
+  <text x="200" y="393" text-anchor="middle" fill="#4ade80" font-family="system-ui" font-size="12" font-weight="700">Explainer Agent</text>
+  <text x="200" y="411" text-anchor="middle" fill="#86efac" font-family="system-ui" font-size="10">Plain Language Output</text>
+
+  <!-- Checker Agent -->
+  <rect x="310" y="370" width="180" height="52" rx="8" fill="#3b1f1f" stroke="#dc2626"/>
+  <text x="400" y="393" text-anchor="middle" fill="#f87171" font-family="system-ui" font-size="12" font-weight="700">Checker Agent</text>
+  <text x="400" y="411" text-anchor="middle" fill="#fca5a5" font-family="system-ui" font-size="10">Drug Interactions</text>
+
+  <!-- Bill Analyzer -->
+  <rect x="500" y="370" width="200" height="52" rx="8" fill="#3b2f1f" stroke="#d97706"/>
+  <text x="600" y="393" text-anchor="middle" fill="#fbbf24" font-family="system-ui" font-size="12" font-weight="700">Bill Analyzer Agent</text>
+  <text x="600" y="411" text-anchor="middle" fill="#fde68a" font-family="system-ui" font-size="10">Overcharge Detection</text>
+
+  <!-- Function Calling boxes -->
+  <rect x="335" y="440" width="130" height="32" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="400" y="461" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">Drug DB (40+ pairs)</text>
+
+  <rect x="535" y="440" width="130" height="32" rx="6" fill="#1e293b" stroke="#334155"/>
+  <text x="600" y="461" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="10">Billing DB (50+ CPT)</text>
+
+  <!-- Arrows to DBs -->
+  <line x1="400" y1="422" x2="400" y2="440" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="422" x2="600" y2="440" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Function calling labels -->
+  <text x="400" y="495" text-anchor="middle" fill="#475569" font-family="system-ui" font-size="10" font-style="italic">Native Function Calling</text>
+  <text x="600" y="495" text-anchor="middle" fill="#475569" font-family="system-ui" font-size="10" font-style="italic">Native Function Calling</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,124 +1,99 @@
-# DocShield - Privacy-First Medical Document Assistant
+<div align="center">
 
-> Your medical documents, explained simply. Zero data leaves your device.
+# DocShield
 
-Built for the **Kaggle Gemma 4 Good Hackathon** ($200K Prize Pool)
+### Privacy-First Medical Document Assistant
+
+*Your medical documents, explained simply. Zero data leaves your device.*
+
+[![Gemma 4](https://img.shields.io/badge/Powered%20by-Gemma%204-8B5CF6?style=for-the-badge)](https://ai.google.dev/gemma)
+[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local-22C55E?style=for-the-badge)](#privacy)
+[![Tests](https://img.shields.io/badge/Tests-22%20Passing-38BDF8?style=for-the-badge)](#testing)
+[![License](https://img.shields.io/badge/License-MIT-64748B?style=for-the-badge)](LICENSE)
+
+Built for the [**Kaggle Gemma 4 Good Hackathon**](https://www.kaggle.com/competitions/gemma-4-good-hackathon) | $200K Prize Pool
+
+</div>
 
 ---
 
 ## The Problem
 
-Billions of people receive medical documents they can't understand. They upload sensitive health data to cloud AI tools, risking their privacy. Meanwhile:
+Billions of people receive medical documents they can't understand. They upload sensitive health data to cloud AI tools, risking their most private information. Meanwhile:
 
-- **Drug interactions** cause 125,000+ deaths/year in the US alone
-- **Billing errors** affect ~80% of hospital bills
-- **Health literacy** is low even in developed countries
+| Problem | Scale |
+|---------|-------|
+| **Drug interactions** cause preventable deaths | 125,000+ deaths/year in the US |
+| **Billing errors** in hospital bills | ~80% of bills contain errors |
+| **Health literacy** is critically low | 36% of US adults have basic or below |
 
 ## The Solution
 
-DocShield is a **multi-agent AI system** powered by **Gemma 4** that reads, explains, and checks your medical documents — entirely on your device.
+DocShield is a **multi-agent AI system** powered by **Gemma 4** that reads, explains, and checks your medical documents — **entirely on your device**.
 
----
-
-## Use Cases
-
-### 1. Prescription Check
-
-```
-INPUT: Photo of prescription
-  - Warfarin 5mg daily
-  - Lisinopril 10mg daily
-  - Ibuprofen 400mg as needed
-
-DOCSHIELD OUTPUT:
-
-  [Reader Agent]     Extracted 4 medications
-  [Explainer Agent]  "Warfarin is a blood thinner. Lisinopril 
-                      controls blood pressure..."
-  [Checker Agent]    !!! HIGH RISK: Warfarin + Ibuprofen
-                     "Significantly increased bleeding risk.
-                      Avoid NSAIDs with warfarin. Use
-                      acetaminophen for pain instead."
-                     !! MEDIUM: Ibuprofen + Lisinopril
-                     "NSAIDs can reduce blood pressure lowering
-                      effect and harm kidneys."
-```
-
-### 2. Lab Report Explained
-
-```
-INPUT: Blood test results
-  LDL: 168 mg/dL    [HIGH]
-  HbA1c: 6.8%       [HIGH]
-  Creatinine: 1.4   [HIGH]
-
-DOCSHIELD OUTPUT:
-
-  [Explainer Agent]  "Your bad cholesterol (LDL) is high at 168.
-                      Target is under 100. Your HbA1c of 6.8%
-                      means your average blood sugar over 3 months
-                      is in the pre-diabetic range. Your kidney
-                      function marker is slightly elevated.
-                      Talk to your doctor about diet changes."
-```
-
-### 3. Hospital Bill Audit
-
-```
-INPUT: Itemized hospital bill ($16,050 total)
-
-DOCSHIELD OUTPUT:
-
-  [Bill Analyzer]    Checking each line item...
-  
-  > Chest X-ray: Charged $950 | Typical: $50-$300
-    POTENTIAL OVERCHARGE: $650 above typical max
-    
-  > EKG: Charged $450 | Typical: $20-$100
-    POTENTIAL OVERCHARGE: $350 above typical max
-    
-  > IV Saline (x3): Charged $2,400 | Typical: $3-$150
-    POTENTIAL OVERCHARGE: wholesale cost is $1/bag
-    
-  > Room (1 night): Charged $8,500 | Typical: $2,500-$4,500
-    POTENTIAL OVERCHARGE: $4,000 above typical max
-    
-  TOTAL POTENTIAL OVERCHARGES: ~$5,000+
-  ACTION: Request itemized bill review from billing dept.
-```
+Upload any medical document and DocShield will:
+1. **Read it** — Extract text from photos, scans, handwritten notes
+2. **Explain it** — Translate medical jargon into plain language
+3. **Check drug safety** — Flag dangerous drug interactions
+4. **Catch billing errors** — Identify overcharges in hospital bills
 
 ---
 
 ## Architecture
 
-```
-User uploads document (image or text)
-           |
-    [Orchestrator Agent] -- Classifies document type
-           |
-    [Reader Agent] -- Gemma 4 Vision (OCR + handwriting)
-           |
-    Auto-routes to specialist agents:
-           |
-    +------+------+------+
-    |             |             |
-[Explainer]  [Checker]    [Bill Analyzer]
-  Agent       Agent          Agent
-    |            |               |
-  Plain      Drug DB        Billing DB
-  language   (function       (function
-  output      calling)        calling)
-```
+<div align="center">
+
+![Architecture](docs/architecture.svg)
+
+</div>
 
 ### Agents
 
 | Agent | Role | Gemma 4 Feature |
 |-------|------|----------------|
-| **Orchestrator** | Classifies document type, routes to specialists | Text classification |
-| **Reader** | Extracts text from photos/scans | Multimodal Vision |
-| **Explainer** | Translates jargon to plain language | Long context, reasoning |
-| **Checker** | Finds dangerous drug interactions | Native Function Calling |
-| **Bill Analyzer** | Flags overcharges and billing errors | Native Function Calling |
+| **Orchestrator** | Auto-classifies document type, routes to specialists | Text Classification |
+| **Reader** | Extracts text from photos, scans, handwriting | **Multimodal Vision** |
+| **Explainer** | Translates jargon to plain language anyone can understand | Long Context, Reasoning |
+| **Checker** | Finds dangerous drug interactions in prescriptions | **Native Function Calling** |
+| **Bill Analyzer** | Flags overcharges and billing errors | **Native Function Calling** |
+
+---
+
+## Use Cases
+
+### 1. Prescription Safety Check
+
+<div align="center">
+
+![Prescription Check](docs/usecase-prescription.svg)
+
+</div>
+
+> A patient receives a prescription with **Warfarin + Ibuprofen**. DocShield's Checker Agent uses Gemma 4's native function calling to query the drug interaction database and flags a **HIGH RISK** bleeding danger — potentially saving a life.
+
+---
+
+### 2. Lab Report Explained
+
+<div align="center">
+
+![Lab Report](docs/usecase-lab.svg)
+
+</div>
+
+> A patient gets blood test results with values like "LDL: 168" and "HbA1c: 6.8%". DocShield's Explainer Agent translates this into plain language: *"Your bad cholesterol is high. Your blood sugar is in the pre-diabetic range."*
+
+---
+
+### 3. Hospital Bill Audit
+
+<div align="center">
+
+![Hospital Bill](docs/usecase-bill.svg)
+
+</div>
+
+> A patient receives a $16,000 hospital bill. DocShield's Bill Analyzer uses function calling to look up typical costs and flags **$5,000+ in potential overcharges** — including a $950 chest X-ray that typically costs $50-$300.
 
 ---
 
@@ -126,6 +101,7 @@ User uploads document (image or text)
 
 ```bash
 # 1. Install Ollama and pull Gemma 4
+# Download Ollama: https://ollama.com/download
 ollama pull gemma4
 
 # 2. Clone and install
@@ -139,21 +115,37 @@ python app.py
 # 4. Open http://localhost:5000
 ```
 
-## Testing
-
-```bash
-pip install pytest
-pytest tests/ -v    # 22 tests
-```
+### Try It Instantly
+The web UI includes **sample buttons** — click "Prescription", "Lab Report", or "Hospital Bill" to load a sample document and see DocShield in action without uploading anything.
 
 ---
 
 ## Privacy
 
-- **Zero cloud calls** - Everything runs on your machine via Ollama
-- **No data collection** - Your documents never leave your device
-- **No internet required** - Works fully offline after setup
-- **On-device ready** - Designed for Gemma 4 E4B (runs on phones)
+| Feature | Detail |
+|---------|--------|
+| **Zero cloud calls** | Everything runs on your machine via Ollama |
+| **No data collection** | Your documents never leave your device |
+| **No internet required** | Works fully offline after initial setup |
+| **On-device ready** | Designed for Gemma 4 E4B (runs on phones) |
+| **No logging** | Server doesn't store or log any document data |
+
+Your medical documents are the most sensitive data you have. DocShield ensures they stay on your device.
+
+---
+
+## Testing
+
+```bash
+pip install pytest
+pytest tests/ -v    # 22 tests, all passing
+```
+
+Tests cover:
+- Drug interaction lookups (exact match, brand names, aliases, edge cases)
+- Billing cost lookups (CPT codes, keywords, unknown codes)
+- Agent logic with mock backend (reader, explainer, routing)
+- Flask endpoints (health check, upload, analyze)
 
 ---
 
@@ -161,12 +153,12 @@ pytest tests/ -v    # 22 tests
 
 | Component | Technology |
 |-----------|-----------|
-| AI Model | Gemma 4 (via Ollama locally, Google GenAI on Kaggle) |
-| Backend | Python, Flask |
-| Frontend | Single-page HTML/JS with SSE streaming |
+| AI Model | Gemma 4 via Ollama (local) / Google GenAI (Kaggle) |
+| Backend | Python 3.12, Flask |
+| Frontend | Single-page HTML/JS, SSE streaming |
 | Drug Database | 40+ interactions, 50+ brand name aliases |
 | Billing Database | 50+ CPT codes with typical US price ranges |
-| Testing | pytest (22 tests) |
+| Medical Abbreviations | 70+ common abbreviations |
 
 ## Project Structure
 
@@ -185,15 +177,12 @@ docshield/
   ollama_backend.py        - Local Ollama integration
   kaggle_backend.py        - Kaggle/Google GenAI integration
 data/
-  drug_interactions.json   - 40+ drug-drug interactions with severity levels
+  drug_interactions.json   - 40+ drug-drug interactions with severity
   billing_codes.json       - 50+ CPT codes with typical price ranges
   medical_abbreviations.json - 70+ common medical abbreviations
 templates/
-  index.html               - Web UI with drag-and-drop upload
-tests/
-  test_tools.py            - Drug + billing database unit tests
-  test_agents.py           - Agent logic tests with mock backend
-  test_app.py              - Flask endpoint integration tests
+  index.html               - Web UI with drag-and-drop + camera capture
+tests/                     - 22 tests (tools, agents, endpoints)
 notebook.ipynb             - Kaggle submission notebook
 ```
 
@@ -201,32 +190,42 @@ notebook.ipynb             - Kaggle submission notebook
 
 ## Hackathon
 
-- **Competition:** [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
-- **Track:** Health
-- **Prize Pool:** $200,000
-- **Deadline:** May 18, 2026
+| | |
+|-|-|
+| **Competition** | [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon) |
+| **Track** | Health |
+| **Prize Pool** | $200,000 |
+| **Deadline** | May 18, 2026 |
 
 ### Gemma 4 Features Showcased
 
-| Feature | Usage |
-|---------|-------|
-| Multimodal Vision | Reads photos of documents, handwritten prescriptions, scanned reports |
-| Native Function Calling | Queries drug interaction DB and billing cost DB via tool calls |
-| Multi-Agent Architecture | 5 specialized agents orchestrated in a pipeline |
-| On-Device (E4B) | Full privacy, works offline on consumer hardware |
-| Long Context (256K) | Handles multi-page medical records |
+| Feature | How DocShield Uses It |
+|---------|----------------------|
+| **Multimodal Vision** | Reads photos of documents, handwritten prescriptions, scanned reports |
+| **Native Function Calling** | Queries drug interaction DB and billing cost DB via structured tool calls |
+| **Multi-Agent Architecture** | 5 specialized agents orchestrated in a pipeline |
+| **On-Device (E4B)** | Full privacy, works offline on consumer hardware |
+| **Long Context (256K)** | Handles multi-page medical records in a single pass |
 
 ### Impact
 
-| Problem | Scale | DocShield's Role |
-|---------|-------|-----------------|
-| Health illiteracy | Billions affected globally | Plain language explanations |
-| Drug interactions | 125K+ deaths/year (US) | Automated interaction checking |
-| Billing errors | 80% of hospital bills | Cost comparison + overcharge detection |
-| Privacy risk | Millions upload health data to cloud | 100% local processing |
+| Problem | DocShield's Role |
+|---------|-----------------|
+| Health illiteracy affects billions | Plain language explanations for any document |
+| 125K+ drug interaction deaths/year | Automated interaction checking with 40+ known pairs |
+| 80% of hospital bills have errors | Cost comparison against national averages |
+| Millions upload health data to cloud | 100% local, zero-data-leakage processing |
 
 ---
 
 ## License
 
 MIT
+
+---
+
+<div align="center">
+
+*Built with Gemma 4 for a healthier, more informed world.*
+
+</div>

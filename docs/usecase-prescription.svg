@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" fill="none">
+  <rect width="800" height="440" rx="12" fill="#0f172a"/>
+  <text x="400" y="32" text-anchor="middle" fill="#60a5fa" font-family="system-ui" font-size="16" font-weight="700">Use Case: Prescription Safety Check</text>
+
+  <!-- Input side -->
+  <rect x="30" y="55" width="340" height="370" rx="10" fill="#1e293b" stroke="#334155"/>
+  <text x="200" y="82" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="12" font-weight="600">INPUT: Prescription</text>
+  <line x1="50" y1="92" x2="350" y2="92" stroke="#334155"/>
+  <text x="50" y="116" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">Patient: John Smith</text>
+  <text x="50" y="136" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">Dr. Sarah Johnson, MD</text>
+  <text x="50" y="166" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">1. Warfarin 5mg - daily</text>
+  <text x="50" y="186" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">2. Lisinopril 10mg - daily</text>
+  <text x="50" y="206" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">3. Ibuprofen 400mg - as needed</text>
+  <text x="50" y="226" fill="#e2e8f0" font-family="Consolas, monospace" font-size="11">4. Omeprazole 20mg - daily</text>
+  <text x="50" y="256" fill="#94a3b8" font-family="Consolas, monospace" font-size="11">Allergies: Penicillin</text>
+
+  <!-- Arrow -->
+  <text x="395" y="220" text-anchor="middle" fill="#38bdf8" font-family="system-ui" font-size="24">&#x27A1;</text>
+
+  <!-- Output side -->
+  <rect x="430" y="55" width="340" height="370" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="600" y="82" text-anchor="middle" fill="#4ade80" font-family="system-ui" font-size="12" font-weight="600">DOCSHIELD OUTPUT</text>
+  <line x1="450" y1="92" x2="750" y2="92" stroke="#334155"/>
+
+  <!-- Explainer result -->
+  <rect x="445" y="100" width="310" height="60" rx="6" fill="#1a3a2a" stroke="#16a34a" stroke-opacity="0.5"/>
+  <text x="455" y="118" fill="#4ade80" font-family="system-ui" font-size="10" font-weight="700">EXPLAINER AGENT</text>
+  <text x="455" y="136" fill="#e2e8f0" font-family="system-ui" font-size="10">"Warfarin is a blood thinner that prevents</text>
+  <text x="455" y="150" fill="#e2e8f0" font-family="system-ui" font-size="10">dangerous clots. Take it daily at same time."</text>
+
+  <!-- Checker HIGH -->
+  <rect x="445" y="170" width="310" height="76" rx="6" fill="#3b1f1f" stroke="#dc2626" stroke-opacity="0.5"/>
+  <text x="455" y="188" fill="#f87171" font-family="system-ui" font-size="10" font-weight="700">CHECKER AGENT - HIGH RISK</text>
+  <text x="455" y="206" fill="#fca5a5" font-family="system-ui" font-size="10" font-weight="600">Warfarin + Ibuprofen</text>
+  <text x="455" y="222" fill="#e2e8f0" font-family="system-ui" font-size="10">"Significantly increased bleeding risk.</text>
+  <text x="455" y="236" fill="#e2e8f0" font-family="system-ui" font-size="10">Use acetaminophen for pain instead."</text>
+
+  <!-- Checker MEDIUM -->
+  <rect x="445" y="256" width="310" height="76" rx="6" fill="#3b2f1f" stroke="#d97706" stroke-opacity="0.5"/>
+  <text x="455" y="274" fill="#fbbf24" font-family="system-ui" font-size="10" font-weight="700">CHECKER AGENT - MEDIUM RISK</text>
+  <text x="455" y="292" fill="#fde68a" font-family="system-ui" font-size="10" font-weight="600">Ibuprofen + Lisinopril</text>
+  <text x="455" y="308" fill="#e2e8f0" font-family="system-ui" font-size="10">"NSAIDs can reduce blood pressure effect</text>
+  <text x="455" y="322" fill="#e2e8f0" font-family="system-ui" font-size="10">and harm kidneys. Use lowest dose."</text>
+
+  <!-- Action -->
+  <rect x="445" y="342" width="310" height="40" rx="6" fill="#1e3a5f" stroke="#2563eb" stroke-opacity="0.5"/>
+  <text x="455" y="362" fill="#60a5fa" font-family="system-ui" font-size="10" font-weight="600">ACTION: Talk to your doctor about safer</text>
+  <text x="455" y="376" fill="#60a5fa" font-family="system-ui" font-size="10" font-weight="600">pain alternatives before taking Ibuprofen.</text>
+
+  <!-- 2 interactions found -->
+  <rect x="445" y="392" width="310" height="24" rx="12" fill="#3b1f1f" stroke="#7f1d1d"/>
+  <text x="600" y="408" text-anchor="middle" fill="#f87171" font-family="system-ui" font-size="10" font-weight="700">2 DRUG INTERACTIONS DETECTED</text>
+</svg>
